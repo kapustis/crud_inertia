@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+
+    public function index(): \Inertia\Response|\Inertia\ResponseFactory
     {
 
-        dd(__METHOD__, __CLASS__);
+        return inertia('Post/Index');
+    }
+
+    public function create(): \Inertia\Response|\Inertia\ResponseFactory
+    {
+
+        return inertia('Post/Create');
     }
 }
