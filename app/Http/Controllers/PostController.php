@@ -18,4 +18,8 @@ class PostController extends Controller
 
         return inertia('Post/Create');
     }
+
+    public function store (Request $request){
+        dd(__METHOD__,$request->input());
+    }
 }
