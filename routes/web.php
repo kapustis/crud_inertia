@@ -30,6 +30,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/posts',[\App\Http\Controllers\PostController::class,'index'])->name('post.index');
 Route::get('/posts/create',[\App\Http\Controllers\PostController::class,'create'])->name('post.create');
+Route::get('/posts/{post}',[\App\Http\Controllers\PostController::class,'show'])->name('post.show');
 Route::post('/posts',[\App\Http\Controllers\PostController::class,'store'])->name('post.store');
 
 require __DIR__.'/auth.php';
