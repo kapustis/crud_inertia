@@ -1,5 +1,6 @@
 <template>
 
+<!--    <MainLayout>-->
         <h1 class="text-lg mb-2">Show post</h1>
         <div class="mb-8">
             <Link :href="route('post.index')" class="text-sky-500 text-sm mb-8"> Back</Link>
@@ -17,6 +18,7 @@
                 <p>no post</p>
             </div>
         </div>
+<!--    </MainLayout>-->
 
 </template>
 
@@ -31,6 +33,7 @@ export default {
         'post'
     ],
     components: {
+        // MainLayout,
         Link
     }
 }

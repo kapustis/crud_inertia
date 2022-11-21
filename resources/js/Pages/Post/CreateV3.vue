@@ -5,7 +5,7 @@
         <div class="mb-8">
             <Link :href="route('post.index')" class="text-sky-500 text-sm mb-8"> Back</Link>
         </div>
-        <form @submit.prevent="store">
+        <form @submit.prevent="submit">
             <div class="mb-2">
                 <input
                     class="w-full rounded-full border-gray-200 mb-2"
@@ -13,13 +13,8 @@
                     type="text"
                     name="title"
                     placeholder="title"
-                    v-model="title"
+                    v-model="form.title"
                 >
-                <div v-if="errors.title">
-                    <p class="text-red-500">
-                      {{errors.title}}
-                    </p>
-                </div>
             </div>
             <div class="mb-2">
                 <textarea
@@ -28,13 +23,8 @@
                     type="text"
                     name="body"
                     placeholder="body"
-                    v-model="body"
+                    v-model="form.body"
                 ></textarea>
-                <div v-if="errors.body">
-                    <p class="text-red-500">
-                        {{errors.body}}
-                    </p>
-                </div>
             </div>
             <div>
                 <button
@@ -51,28 +41,28 @@
 
 <script>
 import {Link} from "@inertiajs/inertia-vue3";
+import {reactive} from 'vue'
+import {Inertia} from '@inertiajs/inertia'
 
 export default {
-    name: "Create",
+    setup() {
+        const form = reactive({
+            title: null,
+            body: null,
+        })
+
+        function submit() {
+            Inertia.post('/posts', form)
+        }
+
+        return {form, submit}
+    },
     components: {
         Link
     },
-    props:[
-        'errors'
-    ],
-    data() {
-        return {
-            title: '',
-            body: ''
-        }
-    },
-    methods: {
-        store() {
-            this.$inertia.post("/posts", {title: this.title, body: this.body});
-        }
-    }
-
 }
+
+
 </script>
 
 <style scoped>

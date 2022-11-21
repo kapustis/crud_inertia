@@ -5,7 +5,7 @@
         <div class="mb-8">
             <Link :href="route('post.index')" class="text-sky-500 text-sm mb-8"> Back</Link>
         </div>
-        <form @submit.prevent="store">
+        <form @submit.prevent="update">
             <div class="mb-2">
                 <input
                     class="w-full rounded-full border-gray-200 mb-2"
@@ -15,11 +15,6 @@
                     placeholder="title"
                     v-model="title"
                 >
-                <div v-if="errors.title">
-                    <p class="text-red-500">
-                      {{errors.title}}
-                    </p>
-                </div>
             </div>
             <div class="mb-2">
                 <textarea
@@ -30,18 +25,13 @@
                     placeholder="body"
                     v-model="body"
                 ></textarea>
-                <div v-if="errors.body">
-                    <p class="text-red-500">
-                        {{errors.body}}
-                    </p>
-                </div>
             </div>
             <div>
                 <button
                     type="submit"
                     class="block ml-auto hover:bg-white hover:text-green-500 p-2 w-32 border border-green-500 bg-green-500 rounded-full text-center text-white"
                 >
-                    Store
+                    Update
                 </button>
             </div>
         </form>
@@ -54,21 +44,21 @@ import {Link} from "@inertiajs/inertia-vue3";
 
 export default {
     name: "Create",
+    props: [
+        'post'
+    ],
     components: {
         Link
     },
-    props:[
-        'errors'
-    ],
     data() {
         return {
-            title: '',
-            body: ''
+            title: this.post.title,
+            body: this.post.body
         }
     },
     methods: {
-        store() {
-            this.$inertia.post("/posts", {title: this.title, body: this.body});
+        update() {
+           this.$inertia.patch(`/posts/${this.post.id}`, {title: this.title, body: this.body});
         }
     }
 
